@@ -1,8 +1,5 @@
 package spring.demo.students.api;
 
-
-
-import jakarta.transaction.Status;
 import spring.demo.students.model.Student;
 import spring.demo.students.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/employee/v1")
+@RequestMapping("/students/v1")
 @RequiredArgsConstructor
 @Validated
 public class StudentResource {
