@@ -10,7 +10,7 @@
 - `sudo service postgresql status`
 - `sudo service postgresql stop`
 
-![alt text](../img/postgresql.png)
+![alt text](img/postgresql.png)
 
 # Run project with remote JVM Debug
 - mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8001"

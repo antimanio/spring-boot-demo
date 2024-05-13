@@ -1,14 +1,12 @@
 package spring.demo.students.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,14 +16,32 @@ import java.time.LocalDateTime;
 public class Student {
 
     @Id
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
     private String firstName;
+
+    @NotNull
     private String lastName;
+
+    @Min(value = 0)
+    @Max(value = 100)
     private Integer age;
-    private String phoneNumber;
+
+    @Email
+    private String email;
+
+    @NotNull
     private String address;
+
+    @PastOrPresent
     private LocalDate dateOfBirth;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+
+    @NotNull
+    private LocalDate createdAt;
+
+    @NotNull
+    private LocalDate updatedAt;
 
 }

@@ -6,13 +6,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Service layer is where all the business logic lies
- */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -24,32 +21,36 @@ public class StudentService {
         return studentRepo.findAll();
     }
 
-    public Student getStudentById(Integer id){
-        Optional<Student> student = studentRepo.findById(id);
-        if(student.isPresent()){
-            return student.get();
-        }
-        return null;
+    public Student getStudentById(Long id){
+        return studentRepo.findById(id).orElse(null);
     }
 
     public Student createStudent (Student student){
-        student.setCreatedAt(LocalDateTime.now());
-        student.setUpdatedAt(LocalDateTime.now());
+        student.setCreatedAt(LocalDate.now());
+        student.setUpdatedAt(LocalDate.now());
         Student createdStudent = studentRepo.save(student);
         return createdStudent;
     }
 
-    public Student updateStudent (Student student) {
-        Optional<Student> existingStudent = studentRepo.findById(student.getId());
-        student.setCreatedAt(existingStudent.get().getCreatedAt());
-        student.setUpdatedAt(LocalDateTime.now());
+    public Student updateStudent (Long id, Student student) {
+        Optional<Student> existingStudent = studentRepo.findById(id);
 
+        if(existingStudent.isEmpty()) {
+            return null;
+        }
+
+        student.setUpdatedAt(LocalDate.now());
         Student updatedStudent = studentRepo.save(student);
         return updatedStudent;
     }
 
-    public void deleteStudentById (Integer id) {
-        studentRepo.deleteById(id);
+    public boolean deleteStudentById (Long id) {
+        Optional<Student> existingStudent = studentRepo.findById(id);
+        if(existingStudent.isPresent()) {
+            studentRepo.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
 }
