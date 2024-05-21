@@ -42,7 +42,7 @@ public class AuthService {
 
             if(user != null) {
                 result.setUsers(userResult);
-                result.setMessage("User Saved Successfully");
+                result.setMessage("Successfully registered");
             }
 
         } catch (Exception e) {
@@ -57,10 +57,10 @@ public class AuthService {
         JWTResponse response = new JWTResponse();
         try {
           authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-          User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not Found"));
+          User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UsernameNotFoundException("Username not Found"));
           String jwt = jwtUtils.generateToken(user);
           response.setAccessToken(jwt);
-          response.setExpirationTime("1Hr");
+          response.setExpirationTime("10 min");
           response.setMessage("Successfully Signed In");
 
         } catch (Exception e) {

@@ -18,9 +18,10 @@ import java.util.function.Function;
 public class JWTUtils {
 
     private SecretKey key;
-    private static final long EXPIRATION_TIME = 3600000; //1 hour
+    private static final long EXPIRATION_TIME = 600000; //10 min
 
     public JWTUtils() {
+        //Secret should not be available in public (production)
         String secret = "843567893696976453275974432697R634976R738467TR678T34865R6834R8763T4783786376645387456738657";
         byte [] keyBytes = Base64.getDecoder().decode(secret.getBytes(StandardCharsets.UTF_8));
         this.key = new SecretKeySpec(keyBytes, "HmacSHA256");
