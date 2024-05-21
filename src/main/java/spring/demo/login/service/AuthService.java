@@ -11,8 +11,6 @@ import spring.demo.login.dto.JWTResponse;
 import spring.demo.login.model.User;
 import spring.demo.login.repository.UserRepository;
 
-import java.util.HashMap;
-
 @Service
 public class AuthService {
 

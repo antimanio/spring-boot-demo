@@ -57,6 +57,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**","/api/products/**").permitAll() // login-project
                         .requestMatchers("/api/helloworld").permitAll() //hello world
                         .requestMatchers("/api/students").permitAll() //student-project
+                        .requestMatchers("api/admin/**").hasAnyAuthority(Role.ADMIN.name()) //Admin access
                         .requestMatchers("/api/users/**").hasAnyAuthority(Role.USER.name()) //User access
                         .requestMatchers("/api/admin-and-user/**").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name()) // Admin and User acess
                         .anyRequest().authenticated()) // All other requests need authentication
