@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/students/v1")
+@RequestMapping("/api/students")
 @RequiredArgsConstructor
 @Validated
 public class StudentResource {

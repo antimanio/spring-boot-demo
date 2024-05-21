@@ -12,6 +12,7 @@
 
 ## Projects
 
+- JWT Authentication (login-folder)
 - PostgresSQL with flyway (student-folder)
 
 

@@ -1,8 +1,8 @@
-# PostgresSQL with flyway
+# Student with CRUD-operations
 
-- This is a project uses Student as an example. 
-- Easy CRUD-operations
-- PostgresSQL locally
+- Easy CRUD-operations (JpaRepository)
+- Database PostgresSQL
+- Flyway
 
 # PostgreSQL WSL
 
@@ -12,5 +12,13 @@
 
 ![alt text](img/postgresql.png)
 
+# Flyway Schema History
+
+![alt text](img/flyway_schema_history.png)
+
+# Run project
+- mvn spring-boot:run
+
 # Run project with remote JVM Debug
 - mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8001"
+
