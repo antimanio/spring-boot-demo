@@ -4,14 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import spring.demo.login.model.Product;
+import spring.demo.login.model.Role;
+import spring.demo.login.model.User;
 
 import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RequestResponse {
-
+public class JWTResponse {
 
     private int statusCode;
     private String error;
@@ -21,8 +22,9 @@ public class RequestResponse {
     private String expirationTime;
     private String email;
     private String password;
-    private String role;
+    private Role role;
     private List<Product> products;
-    private String users;
+    private String productName;
+    private User users;
 
 }

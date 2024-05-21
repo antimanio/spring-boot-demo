@@ -1,6 +1,7 @@
 package spring.demo.login.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,11 +18,10 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Email
     private String email;
     private String password;
     private Role role;
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
