@@ -53,11 +53,13 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable) //disable csrf
-                .authorizeHttpRequests(request -> request.requestMatchers("/api/auth/**", "/api/products/**").permitAll() // All can access this endpoint
-                        .requestMatchers("/api/admin/**").hasAnyAuthority(Role.ADMIN.name()) //Admin access
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers("/api/auth/**","/api/products/**").permitAll() // login-project
+                        .requestMatchers("/api/helloworld").permitAll() //hello world
+                        .requestMatchers("/api/students").permitAll() //student-project
                         .requestMatchers("/api/users/**").hasAnyAuthority(Role.USER.name()) //User access
                         .requestMatchers("/api/admin-and-user/**").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name()) // Admin and User acess
-                        .anyRequest().authenticated())
+                        .anyRequest().authenticated()) // All other requests need authentication
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
