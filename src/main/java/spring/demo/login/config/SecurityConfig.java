@@ -40,25 +40,23 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
-
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable) //disable csrf
-                .authorizeHttpRequests(request -> request.requestMatchers("/api/auth/**,", "/api/products/**").permitAll()
-                        .requestMatchers("/api/admin/**").hasAnyAuthority(Role.ADMIN.name())
-                        .requestMatchers("/api/user/**").hasAnyAuthority(Role.USER.name())
-                        .requestMatchers("/api/admin-and-user/**").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
+                .authorizeHttpRequests(request -> request.requestMatchers("/api/auth/**", "/api/products/**").permitAll() // All can access this endpoint
+                        .requestMatchers("/api/admin/**").hasAnyAuthority(Role.ADMIN.name()) //Admin access
+                        .requestMatchers("/api/users/**").hasAnyAuthority(Role.USER.name()) //User access
+                        .requestMatchers("/api/admin-and-user/**").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name()) // Admin and User acess
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())

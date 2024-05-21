@@ -20,7 +20,6 @@ import java.io.IOException;
 @Component
 public class JWTAuthFilter extends OncePerRequestFilter {
 
-
     private final JWTUtils jwtUtils;
     private final UserService userService;
 
@@ -44,7 +43,6 @@ public class JWTAuthFilter extends OncePerRequestFilter {
         jwtToken = authHeader.substring(7); //"Bearer "
         userEmail = jwtUtils.extractUsername(jwtToken);
 
-        //registrer
         if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userService.loadUserByUsername(userEmail);
 
@@ -57,7 +55,5 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         }
-
-
     }
 }

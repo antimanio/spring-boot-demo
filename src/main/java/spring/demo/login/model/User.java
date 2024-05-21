@@ -18,9 +18,14 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Email
     private String email;
+
+    @Column
     private String password;
+
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override

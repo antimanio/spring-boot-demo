@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import spring.demo.login.dto.JWTRequest;
 import spring.demo.login.dto.JWTResponse;
 import spring.demo.login.service.AuthService;
 
@@ -21,20 +22,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<JWTResponse> register(@RequestBody JWTResponse response) {
-        System.out.print("HELLO....");
-        return ResponseEntity.ok(authService.register(response));
+    public ResponseEntity<JWTResponse> register(@RequestBody JWTRequest request) {
+        return ResponseEntity.ok(authService.register(request));
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<JWTResponse> signIn(@RequestBody JWTResponse response) {
-        return ResponseEntity.ok(authService.signIn(response));
+    public ResponseEntity<JWTResponse> signIn(@RequestBody JWTRequest request) {
+        return ResponseEntity.ok(authService.signIn(request));
     }
-
-    @PostMapping("/refresh")
-    public ResponseEntity<JWTResponse> refreshToken(@RequestBody JWTResponse response) {
-        return ResponseEntity.ok(authService.refreshToken(response));
-    }
-
 
 }
