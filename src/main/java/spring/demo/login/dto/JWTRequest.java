@@ -10,6 +10,7 @@ import spring.demo.login.model.Role;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class JWTRequest {
 
+    private String name;
     private String email;
     private String password;
     private Role role;

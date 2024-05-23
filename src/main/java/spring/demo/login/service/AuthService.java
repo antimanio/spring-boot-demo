@@ -33,6 +33,7 @@ public class AuthService {
         try {
 
             User user = new User();
+            user.setName(request.getName());
             user.setEmail(request.getEmail());
             user.setPassword(passwordEncoder.encode(request.getPassword()));
             user.setRole(request.getRole());
@@ -60,6 +61,7 @@ public class AuthService {
           response.setAccessToken(jwt);
           response.setExpirationTime("10 min");
           response.setMessage("Successfully Signed In");
+          response.setUsers(user);
 
         } catch (Exception e) {
             response.setError(e.getMessage());

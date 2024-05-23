@@ -1,6 +1,7 @@
 package spring.demo.login.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,12 +24,20 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<JWTResponse> register(@RequestBody JWTRequest request) {
-        return ResponseEntity.ok(authService.register(request));
+        JWTResponse response = authService.register(request);
+        if(response.getError() != null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/signin")
     public ResponseEntity<JWTResponse> signIn(@RequestBody JWTRequest request) {
-        return ResponseEntity.ok(authService.signIn(request));
+        JWTResponse response = authService.signIn(request);
+        if(response.getError() != null){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+        }
+        return ResponseEntity.ok(response);
     }
 
 }
