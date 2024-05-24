@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import spring.demo.login.service.JWTUtils;
+import spring.demo.login.service.JWTService;
 import spring.demo.login.service.UserService;
 
 import java.io.IOException;
@@ -20,12 +20,12 @@ import java.io.IOException;
 @Component
 public class JWTAuthFilter extends OncePerRequestFilter {
 
-    private final JWTUtils jwtUtils;
+    private final JWTService jwtService;
     private final UserService userService;
 
     @Autowired
-    public JWTAuthFilter(JWTUtils jwtUtils, UserService userService){
-        this.jwtUtils = jwtUtils;
+    public JWTAuthFilter(JWTService jwtService, UserService userService){
+        this.jwtService = jwtService;
         this.userService = userService;
     }
 
@@ -41,12 +41,12 @@ public class JWTAuthFilter extends OncePerRequestFilter {
         }
 
         jwtToken = authHeader.substring(7); //"Bearer "
-        userEmail = jwtUtils.extractUsername(jwtToken);
+        userEmail = jwtService.extractUsername(jwtToken);
 
         if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userService.loadUserByUsername(userEmail);
 
-            if(jwtUtils.isTokenValid(jwtToken, userDetails)) {
+            if(jwtService.isTokenValid(jwtToken, userDetails)) {
                 SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

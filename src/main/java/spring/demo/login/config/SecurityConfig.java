@@ -57,12 +57,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) //disable csrf
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/api/auth/**","/api/products/**").permitAll() // login-project
-                        .requestMatchers("/api/helloworld").permitAll() //hello world
-                        .requestMatchers("/api/students").permitAll() //student-project
-                        .requestMatchers("api/admin/**").hasAnyAuthority(Role.ADMIN.name()) //Admin access
-                        .requestMatchers("/api/users/**").hasAnyAuthority(Role.USER.name()) //User access
-                        .requestMatchers("/api/admin-and-user/**").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name()) // Admin and User acess
+                        .requestMatchers("/api/helloworld", "/api/auth/**").permitAll() // login-project
+                        .requestMatchers("/admin/**").hasAnyAuthority(Role.ADMIN.name()) //Admin access
+                        .requestMatchers("/users/**").hasAnyAuthority(Role.USER.name()) //User access
+                        .requestMatchers("/admin-and-user/**").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name()) // Admin and User acess
                         .anyRequest().authenticated()) // All other requests need authentication
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
